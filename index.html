@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flight Booking</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Roboto:wght@400;500;700&display=swap"
+        rel="stylesheet">
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <!--Header and Menu Section-->
+    <header class="container">
+        <nav>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">About Us</a></li>
+                <li><a href="#">Contact</a></li>
+                <li><a class="active" href="#">Sign Up</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!--Booking Section-->
+    <main class="main-content container" id="main">
+        <div class="booking-form">
+            <h3>Booking Flights</h3>
+            <div class="input-group">
+                <label for="">Flying From</label>
+                <input class="inp-style" type="text" name="" placeholder="Dhaka, Bangladesh">
+            </div>
+            <div class="input-group">
+                <label for="">Flying To</label>
+                <input class="inp-style" type="text" name="" placeholder="New York, United States">
+            </div>
+            <div class="inputs">
+                <div class="input-group">
+                    <label" for="">Departure</label>
+                        <input class="inp-style" type="date" name="">
+                </div>
+                <div class="input-group">
+                    <label for="">Return</label>
+                    <input class="inp-style" type="date" name="">
+                </div>
+            </div>
+            <div class="input-group f-class">
+                <div>
+                    <label for="">First Class ($150)</label>
+                    <input class="inp-style inp-width" id="first-class-amount" type="text" name="" value="0">
+                </div>
+                <div class="plus-minus-btn btn-group-vertical">
+                    <button class="btn btn-default" id="first-class-add"><i class="fas fa-plus"></i></button>
+                    <button class="btn btn-default" id="first-class-subtract"><i class="fas fa-minus"></i></button>
+                </div>
+            </div>
+
+            <div class="input-group f-class">
+                <div>
+                    <label for="">Economy ($100)</label>
+                    <input class="inp-style inp-width" id="economy-amount" type="text" name="" value="0">
+                </div>
+                <div class="plus-minus-btn btn-group-vertical">
+                    <button class="btn btn-default" id="economy-add"><i class="fas fa-plus"></i></button>
+                    <button class="btn btn-default" id="economy-subtract"><i class="fas fa-minus"></i></button>
+                </div>
+            </div>
+
+            <div class="subtotal">
+                <div class="amount">
+                    <div class="left">
+                        <p>Subtotal</p>
+                    </div>
+                    <div class="right">
+                        <p>$ <span id="subtotal">0</span></p>
+                    </div>
+                </div>
+
+                <div class="amount">
+                    <div class="left">
+                        <p>Charge 10% VAT</p>
+                    </div>
+                    <div class="right">
+                        <p>$ <span id="vat">0</span></p>
+                    </div>
+                </div>
+                <hr>
+                <div class="amount">
+                    <div class="left">
+                        <h4>Total</h4>
+                    </div>
+                    <div class="right">
+                        <p>$ <span id="total">0</span></p>
+                    </div>
+                </div>
+            </div>
+            <button class="btn btn-style" id="booking-button">Book Now</button>
+        </div>
+
+        <div class="booking-content">
+            <h1>discover <br> around the world</h1>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum qui, voluptatem autem ea assumenda ducimus
+                labore nemo distinctio iste quod aliquam saepe atque culpa praesentium accusamus quo quas nulla quaerat!
+            </p>
+        </div>
+    </main>
+
+    <section id="booking-info">
+        <h1>You have booked:</h1>
+        <p><span id="first-class-ticket"> </span> First Class Ticket(s) costing : $ <span id="value1"> </span></p>
+        <p><span id="economy-ticket"></span> Economy Ticket(s) costing : $ <span id="value2"> </span></p>
+        <p>with VAT(10%) : $ <span id="value3"></span>.</p>
+        <p>Total cost : $ <span id="value4"> </span></p>
+        <button class="btn btn-success" id="confirming-button">Confirm</button>
+    </section>
+
+    <section id="confirming">
+        <h1>Ticket successfully booked</h1>
+        <p>Thanks for trusting us! We hope that you will enjoy a safe and comfortable journey</p>
+    </section>
+
+    <script>
+
+        var addCount = 1;
+
+        function quantity(buttonId, inputId, addCount) {
+            document.getElementById(buttonId).addEventListener('click', function () {
+                var amountValue = getInputValue(inputId);
+                amountValue = amountValue + addCount;
+                if (amountValue < 0) {
+                    document.getElementById(inputId).value = 0;
+                }
+                else {
+                    document.getElementById(inputId).value = amountValue;
+                }
+
+                calculations();
+
+                setCount('first-class-amount', 'first-class-ticket');
+                setCount('economy-amount', 'economy-ticket');
+
+                setPrice('vat', 'value3')
+                setPrice('total', 'value4');
+
+                document.getElementById('value1').innerText = getInputValue('first-class-amount') * 150;
+                document.getElementById('value2').innerText = getInputValue('economy-amount') * 100;
+
+            })
+        }
+
+        quantity('first-class-add', 'first-class-amount', addCount);
+        quantity('first-class-subtract', 'first-class-amount', -1 * addCount);
+        quantity('economy-add', 'economy-amount', addCount);
+        quantity('economy-subtract', 'economy-amount', -1 * addCount);
+
+        function calculations() {
+            var firstClassAmount = getInputValue('first-class-amount');
+            var economyAmount = getInputValue('economy-amount');
+
+            var firstClassTotal = firstClassAmount * 150;
+            var economyTotal = economyAmount * 100;
+
+            var subtotal = firstClassTotal + economyTotal;
+            document.getElementById('subtotal').innerText = subtotal;
+
+            var vat = subtotal * 0.1;
+            document.getElementById('vat').innerText = vat;
+
+            var total = subtotal + vat;
+            document.getElementById('total').innerText = total;
+        }
+
+        function getInputValue(inputId) {
+            var input = document.getElementById(inputId);
+            var value = parseInt(input.value);
+            return value;
+        }
+
+        // Book Now button event handler
+        document.getElementById('booking-button').addEventListener('click', function () {
+            document.getElementById('main').style.display = 'none';
+            document.getElementById('booking-info').style.display = 'block';
+            document.getElementById('confirming-button').addEventListener('click', function () {
+                document.getElementById('booking-info').style.display = 'none';
+                document.getElementById('confirming').style.display = 'block';
+            })
+        })
+
+        function setCount(sourceId, targetId) {
+            document.getElementById(targetId).innerText = document.getElementById(sourceId).value;
+        }
+
+        function setPrice(sourceId, targetId) {
+            document.getElementById(targetId).innerText = document.getElementById(sourceId).innerText;
+        }
+
+    </script>
+</body>
+
+</html>
