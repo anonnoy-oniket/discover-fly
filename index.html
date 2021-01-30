@@ -148,8 +148,8 @@
                 setPrice('vat', 'value3')
                 setPrice('total', 'value4');
 
-                document.getElementById('value1').innerText = getInputValue('first-class-amount') * 150;
-                document.getElementById('value2').innerText = getInputValue('economy-amount') * 100;
+                setTotalPrice('first-class-amount', 'value1', 150);
+                setTotalPrice('economy-amount', 'value2', 100);
 
             })
         }
@@ -182,6 +182,18 @@
             return value;
         }
 
+        function setCount(sourceId, targetId) {
+            document.getElementById(targetId).innerText = document.getElementById(sourceId).value;
+        }
+
+        function setPrice(sourceId, targetId) {
+            document.getElementById(targetId).innerText = document.getElementById(sourceId).innerText;
+        }
+
+        function setTotalPrice(sourceId, targetId, price){
+            document.getElementById(targetId).innerText = getInputValue(sourceId) * price;
+        }
+
         // Book Now button event handler
         document.getElementById('booking-button').addEventListener('click', function () {
             document.getElementById('main').style.display = 'none';
@@ -191,14 +203,6 @@
                 document.getElementById('confirming').style.display = 'block';
             })
         })
-
-        function setCount(sourceId, targetId) {
-            document.getElementById(targetId).innerText = document.getElementById(sourceId).value;
-        }
-
-        function setPrice(sourceId, targetId) {
-            document.getElementById(targetId).innerText = document.getElementById(sourceId).innerText;
-        }
 
     </script>
 </body>
